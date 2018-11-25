@@ -78,6 +78,28 @@ list_install_components/fast: list_install_components
 
 .PHONY : list_install_components/fast
 
+# Special rule for the target install/strip
+install/strip: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
+	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+.PHONY : install/strip
+
+# Special rule for the target install/strip
+install/strip/fast: install/strip
+
+.PHONY : install/strip/fast
+
+# Special rule for the target install/local
+install/local: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
+	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+.PHONY : install/local
+
+# Special rule for the target install/local
+install/local/fast: install/local
+
+.PHONY : install/local/fast
+
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
@@ -100,38 +122,16 @@ edit_cache/fast: edit_cache
 
 .PHONY : edit_cache/fast
 
-# Special rule for the target install/local
-install/local: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
-	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
-.PHONY : install/local
-
-# Special rule for the target install/local
-install/local/fast: install/local
-
-.PHONY : install/local/fast
-
-# Special rule for the target install/strip
-install/strip: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
-	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
-.PHONY : install/strip
-
-# Special rule for the target install/strip
-install/strip/fast: install/strip
-
-.PHONY : install/strip/fast
-
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/paperspace/openpose/build/CMakeFiles /home/paperspace/openpose/build/CMakeFiles/progress.marks
-	$(MAKE) -f CMakeFiles/Makefile2 all
+	cd /home/paperspace/openpose/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/paperspace/openpose/build/CMakeFiles /home/paperspace/openpose/build/src/CMakeFiles/progress.marks
+	cd /home/paperspace/openpose/build && $(MAKE) -f CMakeFiles/Makefile2 src/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/paperspace/openpose/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	$(MAKE) -f CMakeFiles/Makefile2 clean
+	cd /home/paperspace/openpose/build && $(MAKE) -f CMakeFiles/Makefile2 src/clean
 .PHONY : clean
 
 # The main clean target
@@ -141,512 +141,18 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	$(MAKE) -f CMakeFiles/Makefile2 preinstall
+	cd /home/paperspace/openpose/build && $(MAKE) -f CMakeFiles/Makefile2 src/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	$(MAKE) -f CMakeFiles/Makefile2 preinstall
+	cd /home/paperspace/openpose/build && $(MAKE) -f CMakeFiles/Makefile2 src/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	$(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /home/paperspace/openpose/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
-
-#=============================================================================
-# Target rules for targets named openpose_caffe
-
-# Build rule for target.
-openpose_caffe: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 openpose_caffe
-.PHONY : openpose_caffe
-
-# fast build rule for target.
-openpose_caffe/fast:
-	$(MAKE) -f CMakeFiles/openpose_caffe.dir/build.make CMakeFiles/openpose_caffe.dir/build
-.PHONY : openpose_caffe/fast
-
-#=============================================================================
-# Target rules for targets named uninstall
-
-# Build rule for target.
-uninstall: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 uninstall
-.PHONY : uninstall
-
-# fast build rule for target.
-uninstall/fast:
-	$(MAKE) -f CMakeFiles/uninstall.dir/build.make CMakeFiles/uninstall.dir/build
-.PHONY : uninstall/fast
-
-#=============================================================================
-# Target rules for targets named openpose
-
-# Build rule for target.
-openpose: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 openpose
-.PHONY : openpose
-
-# fast build rule for target.
-openpose/fast:
-	$(MAKE) -f src/openpose/CMakeFiles/openpose.dir/build.make src/openpose/CMakeFiles/openpose.dir/build
-.PHONY : openpose/fast
-
-#=============================================================================
-# Target rules for targets named openpose_3d
-
-# Build rule for target.
-openpose_3d: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 openpose_3d
-.PHONY : openpose_3d
-
-# fast build rule for target.
-openpose_3d/fast:
-	$(MAKE) -f src/openpose/3d/CMakeFiles/openpose_3d.dir/build.make src/openpose/3d/CMakeFiles/openpose_3d.dir/build
-.PHONY : openpose_3d/fast
-
-#=============================================================================
-# Target rules for targets named openpose_pose
-
-# Build rule for target.
-openpose_pose: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 openpose_pose
-.PHONY : openpose_pose
-
-# fast build rule for target.
-openpose_pose/fast:
-	$(MAKE) -f src/openpose/pose/CMakeFiles/openpose_pose.dir/build.make src/openpose/pose/CMakeFiles/openpose_pose.dir/build
-.PHONY : openpose_pose/fast
-
-#=============================================================================
-# Target rules for targets named openpose_gpu
-
-# Build rule for target.
-openpose_gpu: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 openpose_gpu
-.PHONY : openpose_gpu
-
-# fast build rule for target.
-openpose_gpu/fast:
-	$(MAKE) -f src/openpose/gpu/CMakeFiles/openpose_gpu.dir/build.make src/openpose/gpu/CMakeFiles/openpose_gpu.dir/build
-.PHONY : openpose_gpu/fast
-
-#=============================================================================
-# Target rules for targets named openpose_core
-
-# Build rule for target.
-openpose_core: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 openpose_core
-.PHONY : openpose_core
-
-# fast build rule for target.
-openpose_core/fast:
-	$(MAKE) -f src/openpose/core/CMakeFiles/openpose_core.dir/build.make src/openpose/core/CMakeFiles/openpose_core.dir/build
-.PHONY : openpose_core/fast
-
-#=============================================================================
-# Target rules for targets named openpose_thread
-
-# Build rule for target.
-openpose_thread: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 openpose_thread
-.PHONY : openpose_thread
-
-# fast build rule for target.
-openpose_thread/fast:
-	$(MAKE) -f src/openpose/thread/CMakeFiles/openpose_thread.dir/build.make src/openpose/thread/CMakeFiles/openpose_thread.dir/build
-.PHONY : openpose_thread/fast
-
-#=============================================================================
-# Target rules for targets named openpose_gui
-
-# Build rule for target.
-openpose_gui: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 openpose_gui
-.PHONY : openpose_gui
-
-# fast build rule for target.
-openpose_gui/fast:
-	$(MAKE) -f src/openpose/gui/CMakeFiles/openpose_gui.dir/build.make src/openpose/gui/CMakeFiles/openpose_gui.dir/build
-.PHONY : openpose_gui/fast
-
-#=============================================================================
-# Target rules for targets named openpose_hand
-
-# Build rule for target.
-openpose_hand: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 openpose_hand
-.PHONY : openpose_hand
-
-# fast build rule for target.
-openpose_hand/fast:
-	$(MAKE) -f src/openpose/hand/CMakeFiles/openpose_hand.dir/build.make src/openpose/hand/CMakeFiles/openpose_hand.dir/build
-.PHONY : openpose_hand/fast
-
-#=============================================================================
-# Target rules for targets named openpose_calibration
-
-# Build rule for target.
-openpose_calibration: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 openpose_calibration
-.PHONY : openpose_calibration
-
-# fast build rule for target.
-openpose_calibration/fast:
-	$(MAKE) -f src/openpose/calibration/CMakeFiles/openpose_calibration.dir/build.make src/openpose/calibration/CMakeFiles/openpose_calibration.dir/build
-.PHONY : openpose_calibration/fast
-
-#=============================================================================
-# Target rules for targets named openpose_filestream
-
-# Build rule for target.
-openpose_filestream: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 openpose_filestream
-.PHONY : openpose_filestream
-
-# fast build rule for target.
-openpose_filestream/fast:
-	$(MAKE) -f src/openpose/filestream/CMakeFiles/openpose_filestream.dir/build.make src/openpose/filestream/CMakeFiles/openpose_filestream.dir/build
-.PHONY : openpose_filestream/fast
-
-#=============================================================================
-# Target rules for targets named openpose_net
-
-# Build rule for target.
-openpose_net: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 openpose_net
-.PHONY : openpose_net
-
-# fast build rule for target.
-openpose_net/fast:
-	$(MAKE) -f src/openpose/net/CMakeFiles/openpose_net.dir/build.make src/openpose/net/CMakeFiles/openpose_net.dir/build
-.PHONY : openpose_net/fast
-
-#=============================================================================
-# Target rules for targets named openpose_wrapper
-
-# Build rule for target.
-openpose_wrapper: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 openpose_wrapper
-.PHONY : openpose_wrapper
-
-# fast build rule for target.
-openpose_wrapper/fast:
-	$(MAKE) -f src/openpose/wrapper/CMakeFiles/openpose_wrapper.dir/build.make src/openpose/wrapper/CMakeFiles/openpose_wrapper.dir/build
-.PHONY : openpose_wrapper/fast
-
-#=============================================================================
-# Target rules for targets named openpose_face
-
-# Build rule for target.
-openpose_face: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 openpose_face
-.PHONY : openpose_face
-
-# fast build rule for target.
-openpose_face/fast:
-	$(MAKE) -f src/openpose/face/CMakeFiles/openpose_face.dir/build.make src/openpose/face/CMakeFiles/openpose_face.dir/build
-.PHONY : openpose_face/fast
-
-#=============================================================================
-# Target rules for targets named openpose_producer
-
-# Build rule for target.
-openpose_producer: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 openpose_producer
-.PHONY : openpose_producer
-
-# fast build rule for target.
-openpose_producer/fast:
-	$(MAKE) -f src/openpose/producer/CMakeFiles/openpose_producer.dir/build.make src/openpose/producer/CMakeFiles/openpose_producer.dir/build
-.PHONY : openpose_producer/fast
-
-#=============================================================================
-# Target rules for targets named openpose_tracking
-
-# Build rule for target.
-openpose_tracking: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 openpose_tracking
-.PHONY : openpose_tracking
-
-# fast build rule for target.
-openpose_tracking/fast:
-	$(MAKE) -f src/openpose/tracking/CMakeFiles/openpose_tracking.dir/build.make src/openpose/tracking/CMakeFiles/openpose_tracking.dir/build
-.PHONY : openpose_tracking/fast
-
-#=============================================================================
-# Target rules for targets named openpose_utilities
-
-# Build rule for target.
-openpose_utilities: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 openpose_utilities
-.PHONY : openpose_utilities
-
-# fast build rule for target.
-openpose_utilities/fast:
-	$(MAKE) -f src/openpose/utilities/CMakeFiles/openpose_utilities.dir/build.make src/openpose/utilities/CMakeFiles/openpose_utilities.dir/build
-.PHONY : openpose_utilities/fast
-
-#=============================================================================
-# Target rules for targets named calibration.bin
-
-# Build rule for target.
-calibration.bin: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 calibration.bin
-.PHONY : calibration.bin
-
-# fast build rule for target.
-calibration.bin/fast:
-	$(MAKE) -f examples/calibration/CMakeFiles/calibration.bin.dir/build.make examples/calibration/CMakeFiles/calibration.bin.dir/build
-.PHONY : calibration.bin/fast
-
-#=============================================================================
-# Target rules for targets named openpose.bin
-
-# Build rule for target.
-openpose.bin: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 openpose.bin
-.PHONY : openpose.bin
-
-# fast build rule for target.
-openpose.bin/fast:
-	$(MAKE) -f examples/openpose/CMakeFiles/openpose.bin.dir/build.make examples/openpose/CMakeFiles/openpose.bin.dir/build
-.PHONY : openpose.bin/fast
-
-#=============================================================================
-# Target rules for targets named 1_custom_post_processing.bin
-
-# Build rule for target.
-1_custom_post_processing.bin: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 1_custom_post_processing.bin
-.PHONY : 1_custom_post_processing.bin
-
-# fast build rule for target.
-1_custom_post_processing.bin/fast:
-	$(MAKE) -f examples/tutorial_add_module/CMakeFiles/1_custom_post_processing.bin.dir/build.make examples/tutorial_add_module/CMakeFiles/1_custom_post_processing.bin.dir/build
-.PHONY : 1_custom_post_processing.bin/fast
-
-#=============================================================================
-# Target rules for targets named 2_whole_body_from_image.bin
-
-# Build rule for target.
-2_whole_body_from_image.bin: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 2_whole_body_from_image.bin
-.PHONY : 2_whole_body_from_image.bin
-
-# fast build rule for target.
-2_whole_body_from_image.bin/fast:
-	$(MAKE) -f examples/tutorial_api_cpp/CMakeFiles/2_whole_body_from_image.bin.dir/build.make examples/tutorial_api_cpp/CMakeFiles/2_whole_body_from_image.bin.dir/build
-.PHONY : 2_whole_body_from_image.bin/fast
-
-#=============================================================================
-# Target rules for targets named 4_asynchronous_loop_custom_input_and_output.bin
-
-# Build rule for target.
-4_asynchronous_loop_custom_input_and_output.bin: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 4_asynchronous_loop_custom_input_and_output.bin
-.PHONY : 4_asynchronous_loop_custom_input_and_output.bin
-
-# fast build rule for target.
-4_asynchronous_loop_custom_input_and_output.bin/fast:
-	$(MAKE) -f examples/tutorial_api_cpp/CMakeFiles/4_asynchronous_loop_custom_input_and_output.bin.dir/build.make examples/tutorial_api_cpp/CMakeFiles/4_asynchronous_loop_custom_input_and_output.bin.dir/build
-.PHONY : 4_asynchronous_loop_custom_input_and_output.bin/fast
-
-#=============================================================================
-# Target rules for targets named 5_asynchronous_loop_custom_output.bin
-
-# Build rule for target.
-5_asynchronous_loop_custom_output.bin: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 5_asynchronous_loop_custom_output.bin
-.PHONY : 5_asynchronous_loop_custom_output.bin
-
-# fast build rule for target.
-5_asynchronous_loop_custom_output.bin/fast:
-	$(MAKE) -f examples/tutorial_api_cpp/CMakeFiles/5_asynchronous_loop_custom_output.bin.dir/build.make examples/tutorial_api_cpp/CMakeFiles/5_asynchronous_loop_custom_output.bin.dir/build
-.PHONY : 5_asynchronous_loop_custom_output.bin/fast
-
-#=============================================================================
-# Target rules for targets named 1_body_from_image.bin
-
-# Build rule for target.
-1_body_from_image.bin: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 1_body_from_image.bin
-.PHONY : 1_body_from_image.bin
-
-# fast build rule for target.
-1_body_from_image.bin/fast:
-	$(MAKE) -f examples/tutorial_api_cpp/CMakeFiles/1_body_from_image.bin.dir/build.make examples/tutorial_api_cpp/CMakeFiles/1_body_from_image.bin.dir/build
-.PHONY : 1_body_from_image.bin/fast
-
-#=============================================================================
-# Target rules for targets named 3_keypoints_from_image_configurable.bin
-
-# Build rule for target.
-3_keypoints_from_image_configurable.bin: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 3_keypoints_from_image_configurable.bin
-.PHONY : 3_keypoints_from_image_configurable.bin
-
-# fast build rule for target.
-3_keypoints_from_image_configurable.bin/fast:
-	$(MAKE) -f examples/tutorial_api_cpp/CMakeFiles/3_keypoints_from_image_configurable.bin.dir/build.make examples/tutorial_api_cpp/CMakeFiles/3_keypoints_from_image_configurable.bin.dir/build
-.PHONY : 3_keypoints_from_image_configurable.bin/fast
-
-#=============================================================================
-# Target rules for targets named 6_synchronous_custom_postprocessing.bin
-
-# Build rule for target.
-6_synchronous_custom_postprocessing.bin: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 6_synchronous_custom_postprocessing.bin
-.PHONY : 6_synchronous_custom_postprocessing.bin
-
-# fast build rule for target.
-6_synchronous_custom_postprocessing.bin/fast:
-	$(MAKE) -f examples/tutorial_api_cpp/CMakeFiles/6_synchronous_custom_postprocessing.bin.dir/build.make examples/tutorial_api_cpp/CMakeFiles/6_synchronous_custom_postprocessing.bin.dir/build
-.PHONY : 6_synchronous_custom_postprocessing.bin/fast
-
-#=============================================================================
-# Target rules for targets named 7_synchronous_custom_input.bin
-
-# Build rule for target.
-7_synchronous_custom_input.bin: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 7_synchronous_custom_input.bin
-.PHONY : 7_synchronous_custom_input.bin
-
-# fast build rule for target.
-7_synchronous_custom_input.bin/fast:
-	$(MAKE) -f examples/tutorial_api_cpp/CMakeFiles/7_synchronous_custom_input.bin.dir/build.make examples/tutorial_api_cpp/CMakeFiles/7_synchronous_custom_input.bin.dir/build
-.PHONY : 7_synchronous_custom_input.bin/fast
-
-#=============================================================================
-# Target rules for targets named 8_synchronous_custom_output.bin
-
-# Build rule for target.
-8_synchronous_custom_output.bin: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 8_synchronous_custom_output.bin
-.PHONY : 8_synchronous_custom_output.bin
-
-# fast build rule for target.
-8_synchronous_custom_output.bin/fast:
-	$(MAKE) -f examples/tutorial_api_cpp/CMakeFiles/8_synchronous_custom_output.bin.dir/build.make examples/tutorial_api_cpp/CMakeFiles/8_synchronous_custom_output.bin.dir/build
-.PHONY : 8_synchronous_custom_output.bin/fast
-
-#=============================================================================
-# Target rules for targets named 9_synchronous_custom_all.bin
-
-# Build rule for target.
-9_synchronous_custom_all.bin: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 9_synchronous_custom_all.bin
-.PHONY : 9_synchronous_custom_all.bin
-
-# fast build rule for target.
-9_synchronous_custom_all.bin/fast:
-	$(MAKE) -f examples/tutorial_api_cpp/CMakeFiles/9_synchronous_custom_all.bin.dir/build.make examples/tutorial_api_cpp/CMakeFiles/9_synchronous_custom_all.bin.dir/build
-.PHONY : 9_synchronous_custom_all.bin/fast
-
-#=============================================================================
-# Target rules for targets named thread_1_openpose_read_and_display.bin
-
-# Build rule for target.
-thread_1_openpose_read_and_display.bin: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 thread_1_openpose_read_and_display.bin
-.PHONY : thread_1_openpose_read_and_display.bin
-
-# fast build rule for target.
-thread_1_openpose_read_and_display.bin/fast:
-	$(MAKE) -f examples/tutorial_developer/CMakeFiles/thread_1_openpose_read_and_display.bin.dir/build.make examples/tutorial_developer/CMakeFiles/thread_1_openpose_read_and_display.bin.dir/build
-.PHONY : thread_1_openpose_read_and_display.bin/fast
-
-#=============================================================================
-# Target rules for targets named pose_1_extract_from_image.bin
-
-# Build rule for target.
-pose_1_extract_from_image.bin: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 pose_1_extract_from_image.bin
-.PHONY : pose_1_extract_from_image.bin
-
-# fast build rule for target.
-pose_1_extract_from_image.bin/fast:
-	$(MAKE) -f examples/tutorial_developer/CMakeFiles/pose_1_extract_from_image.bin.dir/build.make examples/tutorial_developer/CMakeFiles/pose_1_extract_from_image.bin.dir/build
-.PHONY : pose_1_extract_from_image.bin/fast
-
-#=============================================================================
-# Target rules for targets named thread_2_user_processing_function.bin
-
-# Build rule for target.
-thread_2_user_processing_function.bin: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 thread_2_user_processing_function.bin
-.PHONY : thread_2_user_processing_function.bin
-
-# fast build rule for target.
-thread_2_user_processing_function.bin/fast:
-	$(MAKE) -f examples/tutorial_developer/CMakeFiles/thread_2_user_processing_function.bin.dir/build.make examples/tutorial_developer/CMakeFiles/thread_2_user_processing_function.bin.dir/build
-.PHONY : thread_2_user_processing_function.bin/fast
-
-#=============================================================================
-# Target rules for targets named pose_2_extract_pose_or_heatmat_from_image.bin
-
-# Build rule for target.
-pose_2_extract_pose_or_heatmat_from_image.bin: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 pose_2_extract_pose_or_heatmat_from_image.bin
-.PHONY : pose_2_extract_pose_or_heatmat_from_image.bin
-
-# fast build rule for target.
-pose_2_extract_pose_or_heatmat_from_image.bin/fast:
-	$(MAKE) -f examples/tutorial_developer/CMakeFiles/pose_2_extract_pose_or_heatmat_from_image.bin.dir/build.make examples/tutorial_developer/CMakeFiles/pose_2_extract_pose_or_heatmat_from_image.bin.dir/build
-.PHONY : pose_2_extract_pose_or_heatmat_from_image.bin/fast
-
-#=============================================================================
-# Target rules for targets named thread_3_user_input_processing_and_output.bin
-
-# Build rule for target.
-thread_3_user_input_processing_and_output.bin: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 thread_3_user_input_processing_and_output.bin
-.PHONY : thread_3_user_input_processing_and_output.bin
-
-# fast build rule for target.
-thread_3_user_input_processing_and_output.bin/fast:
-	$(MAKE) -f examples/tutorial_developer/CMakeFiles/thread_3_user_input_processing_and_output.bin.dir/build.make examples/tutorial_developer/CMakeFiles/thread_3_user_input_processing_and_output.bin.dir/build
-.PHONY : thread_3_user_input_processing_and_output.bin/fast
-
-#=============================================================================
-# Target rules for targets named thread_4_user_input_processing_output_and_datum.bin
-
-# Build rule for target.
-thread_4_user_input_processing_output_and_datum.bin: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 thread_4_user_input_processing_output_and_datum.bin
-.PHONY : thread_4_user_input_processing_output_and_datum.bin
-
-# fast build rule for target.
-thread_4_user_input_processing_output_and_datum.bin/fast:
-	$(MAKE) -f examples/tutorial_developer/CMakeFiles/thread_4_user_input_processing_output_and_datum.bin.dir/build.make examples/tutorial_developer/CMakeFiles/thread_4_user_input_processing_output_and_datum.bin.dir/build
-.PHONY : thread_4_user_input_processing_output_and_datum.bin/fast
-
-#=============================================================================
-# Target rules for targets named handFromJsonTest.bin
-
-# Build rule for target.
-handFromJsonTest.bin: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 handFromJsonTest.bin
-.PHONY : handFromJsonTest.bin
-
-# fast build rule for target.
-handFromJsonTest.bin/fast:
-	$(MAKE) -f examples/tests/CMakeFiles/handFromJsonTest.bin.dir/build.make examples/tests/CMakeFiles/handFromJsonTest.bin.dir/build
-.PHONY : handFromJsonTest.bin/fast
-
-#=============================================================================
-# Target rules for targets named resizeTest.bin
-
-# Build rule for target.
-resizeTest.bin: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 resizeTest.bin
-.PHONY : resizeTest.bin
-
-# fast build rule for target.
-resizeTest.bin/fast:
-	$(MAKE) -f examples/tests/CMakeFiles/resizeTest.bin.dir/build.make examples/tests/CMakeFiles/resizeTest.bin.dir/build
-.PHONY : resizeTest.bin/fast
 
 # Help Target
 help:
@@ -656,48 +162,10 @@ help:
 	@echo "... depend"
 	@echo "... install"
 	@echo "... list_install_components"
+	@echo "... install/strip"
+	@echo "... install/local"
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
-	@echo "... openpose_caffe"
-	@echo "... uninstall"
-	@echo "... install/local"
-	@echo "... install/strip"
-	@echo "... openpose"
-	@echo "... openpose_3d"
-	@echo "... openpose_pose"
-	@echo "... openpose_gpu"
-	@echo "... openpose_core"
-	@echo "... openpose_thread"
-	@echo "... openpose_gui"
-	@echo "... openpose_hand"
-	@echo "... openpose_calibration"
-	@echo "... openpose_filestream"
-	@echo "... openpose_net"
-	@echo "... openpose_wrapper"
-	@echo "... openpose_face"
-	@echo "... openpose_producer"
-	@echo "... openpose_tracking"
-	@echo "... openpose_utilities"
-	@echo "... calibration.bin"
-	@echo "... openpose.bin"
-	@echo "... 1_custom_post_processing.bin"
-	@echo "... 2_whole_body_from_image.bin"
-	@echo "... 4_asynchronous_loop_custom_input_and_output.bin"
-	@echo "... 5_asynchronous_loop_custom_output.bin"
-	@echo "... 1_body_from_image.bin"
-	@echo "... 3_keypoints_from_image_configurable.bin"
-	@echo "... 6_synchronous_custom_postprocessing.bin"
-	@echo "... 7_synchronous_custom_input.bin"
-	@echo "... 8_synchronous_custom_output.bin"
-	@echo "... 9_synchronous_custom_all.bin"
-	@echo "... thread_1_openpose_read_and_display.bin"
-	@echo "... pose_1_extract_from_image.bin"
-	@echo "... thread_2_user_processing_function.bin"
-	@echo "... pose_2_extract_pose_or_heatmat_from_image.bin"
-	@echo "... thread_3_user_input_processing_and_output.bin"
-	@echo "... thread_4_user_input_processing_output_and_datum.bin"
-	@echo "... handFromJsonTest.bin"
-	@echo "... resizeTest.bin"
 .PHONY : help
 
 
@@ -709,6 +177,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	$(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /home/paperspace/openpose/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 
