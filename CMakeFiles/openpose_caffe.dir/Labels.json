@@ -1,0 +1,43 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "/home/paperspace/openpose/build/CMakeFiles/openpose_caffe"
+		},
+		{
+			"file" : "/home/paperspace/openpose/build/CMakeFiles/openpose_caffe.rule"
+		},
+		{
+			"file" : "/home/paperspace/openpose/build/CMakeFiles/openpose_caffe-complete.rule"
+		},
+		{
+			"file" : "/home/paperspace/openpose/build/caffe/src/openpose_caffe-stamp/openpose_caffe-install.rule"
+		},
+		{
+			"file" : "/home/paperspace/openpose/build/caffe/src/openpose_caffe-stamp/openpose_caffe-mkdir.rule"
+		},
+		{
+			"file" : "/home/paperspace/openpose/build/caffe/src/openpose_caffe-stamp/openpose_caffe-download.rule"
+		},
+		{
+			"file" : "/home/paperspace/openpose/build/caffe/src/openpose_caffe-stamp/openpose_caffe-update.rule"
+		},
+		{
+			"file" : "/home/paperspace/openpose/build/caffe/src/openpose_caffe-stamp/openpose_caffe-patch.rule"
+		},
+		{
+			"file" : "/home/paperspace/openpose/build/caffe/src/openpose_caffe-stamp/openpose_caffe-configure.rule"
+		},
+		{
+			"file" : "/home/paperspace/openpose/build/caffe/src/openpose_caffe-stamp/openpose_caffe-build.rule"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"openpose_caffe"
+		],
+		"name" : "openpose_caffe"
+	}
+}
